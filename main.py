@@ -78,12 +78,16 @@ def add_user(username, password):
         return True
 
 def main():
-    # At the top of your app.py, after imports
     l = st.empty()
-    logo = l.image("logo.png", use_column_width=True)
+    
+    l.image("logo.png", use_column_width=True)
 
     if 'auth' not in state:
         state.auth = False
+        state.username = None 
+    if state.auth:
+        greet = st.empty()
+        greet.write(f"Welcome Back, {state.username.capitalize()}!")
 
     if not state.auth:
         menu = ["Login", "Register"]
@@ -95,13 +99,16 @@ def main():
             password = st.text_input("Password", type='password')
 
             if st.button("Login"):
+            
                 if validate(username, password):
                     st.success("Logged in Successfully")
                     state.auth = True
+                    state.username = username 
                     # Redirect to Project Overview page after login
                     state.page = "Project Overview"
                 else:
                     st.error("Incorrect username or password")
+            st.markdown("⬅️Register using the **Menu** here")
 
         elif choice == "Register":
             st.title("Registration Page")
@@ -118,7 +125,7 @@ def main():
         st.sidebar.image("logo.png", use_column_width=True)
         menu = ["Project Overview", "Life Expectancy Prediction", "Life Expectancy Dashboard", "System Architecture & Data Dictionary", "Logout"]
         choice = st.sidebar.selectbox("Menu", menu, index=menu.index(state.page if 'page' in state else "Project Overview"))
-
+        
         if choice == "Project Overview":
             l.empty()
             state.page = "Project Overview"
