@@ -342,6 +342,7 @@ def main():
             
     
         elif choice == "Logout":
+            greet.empty()
             state.auth = False
             st.sidebar.empty()
             st.info("Logged out")
