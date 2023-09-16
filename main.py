@@ -15,6 +15,7 @@ import pandas as pd
 
 
 
+# Class to handle outliers
 class OutlierHandler(BaseEstimator, TransformerMixin):
     def __init__(self, n_neighbors=5):
         self.n_neighbors = n_neighbors
@@ -26,11 +27,7 @@ class OutlierHandler(BaseEstimator, TransformerMixin):
         self.Q3 = X.quantile(0.75)
         return self
 
-    #def transform(self, X):
-    #    X_out = X.copy()
-    #    X_out[((X_out < (self.Q1 - 1.5 * self.IQR)) | (X_out > (self.Q3 + 1.5 * self.IQR)))] = np.nan
-    #    X_out = pd.DataFrame(self.imputer.fit_transform(X_out), columns=X.columns)
-    #    return X_out
+   
 
     def transform(self, X, y=None):
         X_out = X.copy()
@@ -54,7 +51,7 @@ def log_transform(X):
 le_model = pickle.load(open('gb_model_2.sav', 'rb'))
 
 
-
+# Database operations
 # Connect to SQLite database (or create it if it doesn't exist)
 conn = sqlite3.connect('users.db')
 c = conn.cursor()
@@ -63,12 +60,14 @@ c = conn.cursor()
 c.execute('''CREATE TABLE IF NOT EXISTS USERS
              ([generated_id] INTEGER PRIMARY KEY,[username] text, [password] text)''')
 
+# Function to validate user credentials
 def validate(username, password):
     c.execute(f'SELECT * FROM USERS WHERE username="{username}" AND password="{password}"')
     if c.fetchone():
         return True
     return False
 
+# Function to add a new user
 def add_user(username, password):
     c.execute(f'SELECT * FROM USERS WHERE username="{username}"')
     if c.fetchone():
@@ -77,19 +76,22 @@ def add_user(username, password):
         c.execute(f'INSERT INTO USERS (username,password) VALUES ("{username}", "{password}")')
         conn.commit()
         return True
-
+        
+# Main function for Streamlit app
 def main():
     l = st.empty()
     
     l.image("logo.png", use_column_width=True)
-
+    
+    # Check authentication state
     if 'auth' not in state:
         state.auth = False
         state.username = None 
     if state.auth:
         greet = st.empty()
         greet.write(f"Welcome Back, {state.username.capitalize()}!")
-
+        
+    # Login and Registration operations
     if not state.auth:
         menu = ["Login", "Register"]
         choice = st.sidebar.selectbox("Menu", menu)
@@ -121,12 +123,15 @@ def main():
                     st.success("User registered successfully")
                 else:
                     st.error("Username already taken")
-
+                    
+    # Authenticated user operations
     if state.auth:
         st.sidebar.image("logo.png", use_column_width=True)
         menu = ["Project Overview", "Life Expectancy Prediction", "Life Expectancy Dashboard", "System Architecture & Data Dictionary", "Logout"]
         choice = st.sidebar.selectbox("Menu", menu, index=menu.index(state.page if 'page' in state else "Project Overview"))
-        
+
+        # Further code for each menu option...
+
         if choice == "Project Overview":
             l.empty()
             state.page = "Project Overview"
@@ -239,10 +244,7 @@ def main():
                 'under_five_deaths': [under_five_deaths]
                 }).astype(float)
 
-            #input_name =[GDP, HIV_AIDS, adult_mortality, alcohol, bmi, diphtheria, education_expenditure, hepatitis_b, infant_deaths, income_composition_of_resources, measles, percentage_expenditure, polio, schooling, thinness_5_19_years, total_expenditure, under_five_deaths
-
-            #input_data[input_name].replace('', 0, inplace=True)
-            #input_data = input_data.astype(float)   
+             
                 
             # code for Prediction
             le_years = ''
