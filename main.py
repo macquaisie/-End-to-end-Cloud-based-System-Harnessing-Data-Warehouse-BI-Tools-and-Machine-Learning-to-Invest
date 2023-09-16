@@ -11,6 +11,8 @@ import numpy as np
 from xgboost import XGBRegressor
 import pandas as pd
 
+import warnings
+warnings.filterwarnings(action='ignore')
 
 
 
