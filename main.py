@@ -210,12 +210,14 @@ def main():
                     float(value)
                     return True
                 except ValueError:
+                    st.stop()
                     return False
 
             invalid_inputs = [input_value for input_value in input_list if input_value == "" or not is_valid_number(input_value)]
 
             if invalid_inputs:
                 st.warning("Please ensure all input fields are filled and contain valid numbers (integers or floats)!")
+                st.stop()
             else:
                 input_data = pd.DataFrame({
                 'GDP': [GDP], 
