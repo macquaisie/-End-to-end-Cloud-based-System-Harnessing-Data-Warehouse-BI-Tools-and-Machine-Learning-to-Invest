@@ -11,8 +11,7 @@ import numpy as np
 from xgboost import XGBRegressor
 import pandas as pd
 
-import warnings
-warnings.filterwarnings(action='ignore')
+
 
 
 
@@ -210,6 +209,7 @@ def main():
                     float(value)
                     return True
                 except ValueError:
+                    st.warning("Please ensure all input fields are filled and contain valid numbers (integers or floats)!")
                     st.stop()
                     return False
 
