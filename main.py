@@ -14,6 +14,8 @@ import pandas as pd
 
 
 
+
+# Class to handle outliers
 class OutlierHandler(BaseEstimator, TransformerMixin):
     def __init__(self, n_neighbors=5):
         self.n_neighbors = n_neighbors
@@ -25,11 +27,7 @@ class OutlierHandler(BaseEstimator, TransformerMixin):
         self.Q3 = X.quantile(0.75)
         return self
 
-    #def transform(self, X):
-    #    X_out = X.copy()
-    #    X_out[((X_out < (self.Q1 - 1.5 * self.IQR)) | (X_out > (self.Q3 + 1.5 * self.IQR)))] = np.nan
-    #    X_out = pd.DataFrame(self.imputer.fit_transform(X_out), columns=X.columns)
-    #    return X_out
+   
 
     def transform(self, X, y=None):
         X_out = X.copy()
@@ -53,7 +51,7 @@ def log_transform(X):
 le_model = pickle.load(open('gb_model_2.sav', 'rb'))
 
 
-
+# Database operations
 # Connect to SQLite database (or create it if it doesn't exist)
 conn = sqlite3.connect('users.db')
 c = conn.cursor()
@@ -62,12 +60,14 @@ c = conn.cursor()
 c.execute('''CREATE TABLE IF NOT EXISTS USERS
              ([generated_id] INTEGER PRIMARY KEY,[username] text, [password] text)''')
 
+# Function to validate user credentials
 def validate(username, password):
     c.execute(f'SELECT * FROM USERS WHERE username="{username}" AND password="{password}"')
     if c.fetchone():
         return True
     return False
 
+# Function to add a new user
 def add_user(username, password):
     c.execute(f'SELECT * FROM USERS WHERE username="{username}"')
     if c.fetchone():
@@ -76,19 +76,22 @@ def add_user(username, password):
         c.execute(f'INSERT INTO USERS (username,password) VALUES ("{username}", "{password}")')
         conn.commit()
         return True
-
+        
+# Main function for Streamlit app
 def main():
     l = st.empty()
     
     l.image("logo.png", use_column_width=True)
-
+    
+    # Check authentication state
     if 'auth' not in state:
         state.auth = False
         state.username = None 
     if state.auth:
         greet = st.empty()
         greet.write(f"Welcome Back, {state.username.capitalize()}!")
-
+        
+    # Login and Registration operations
     if not state.auth:
         menu = ["Login", "Register"]
         choice = st.sidebar.selectbox("Menu", menu)
@@ -120,12 +123,15 @@ def main():
                     st.success("User registered successfully")
                 else:
                     st.error("Username already taken")
-
+                    
+    # Authenticated user operations
     if state.auth:
         st.sidebar.image("logo.png", use_column_width=True)
         menu = ["Project Overview", "Life Expectancy Prediction", "Life Expectancy Dashboard", "System Architecture & Data Dictionary", "Logout"]
         choice = st.sidebar.selectbox("Menu", menu, index=menu.index(state.page if 'page' in state else "Project Overview"))
-        
+
+        # Further code for each menu option...
+
         if choice == "Project Overview":
             l.empty()
             state.page = "Project Overview"
@@ -139,7 +145,44 @@ def main():
             st.subheader("Research Objective")
             st.write('The primary objectives of this project are to:')
             st.markdown('<ol><li>Demonstrate the importance of building a data warehouse for Life Expectancy. </li><li>Design a fully automated cloud-based data warehouse using a star schema for efficient storage and querying of Life Expectancy data and related factors.</li><li>Analyze and visualize the relationships between Life Expectancy and its influencing key factors to identify the main trends and disparities causing the slow decline in  LE by creating a dashboard.</li><li>Train and evaluate a model using 3 machine learning algorithms to predict Life Expectancy and the key features causing the slow decline of LE based on key selected metrics.</li><li>Develop an API and web application for easy access to the insights of Life Expectancy data, dashboard, and machine learning model.</li><li>Provide insights and recommendations for policies and interventions aimed at reducing the life expectancy gap, and promoting health equity.</li></ol>', unsafe_allow_html=True)
-    
+            st.write('Conclusion')
+            st.image("Actual vs Predicted.png", use_column_width=True)
+            markdown_text = """
+            **Finds and Results**
+            - **Life Expectancy Insights**: The research delved into life expectancy disparities, unveiling patterns and influential factors.
+              
+            - **Country Comparisons**: 
+              - Developed countries showed a life expectancy range of 68-95 years.
+              - Developing countries ranged from 35-92 years.
+              
+            - **Global Events Impact**:
+              - The Great Recession and the 2004 tsunamis were linked to noticeable dips in life expectancy.
+              
+            - **Machine Learning (ML) Insights**:
+              - XGBoost emerged as the most effective model in identifying life expectancy determinants.
+              
+            - **Cloud-Driven System**:
+              - The study utilized Google BigQuery's capabilities.
+              - Emphasized the role of cloud technology in enhancing scalability, real-time analysis, and collaboration.
+              
+            - **Data Processing**:
+              - Data underwent rigorous processing and analysis using ML models and Business Intelligence tools.
+              
+            - **Key Determinants**:
+              - Economic indicators, especially Total Expenditure, were major predictors.
+              - Health metrics like adult mortality negatively correlated with life expectancy.
+              
+            - **Geographical Disparities**:
+              - Asian countries generally outperformed some African nations in life expectancy.
+              
+            - **Web Interface**:
+              - The research platform allowed real-time life expectancy predictions, enhancing user experience.
+              
+            - **Conclusive Findings**:
+              - The study highlighted the intertwined nature of socio-economic and health-related factors in shaping life expectancy.
+              - Suggested targeted interventions to address disparities.
+            """
+            st.markdown(markdown_text)
         
         elif choice == "Life Expectancy Prediction":
             state.page = "Life Expectancy Prediction"
@@ -208,12 +251,15 @@ def main():
                     float(value)
                     return True
                 except ValueError:
+                    st.warning("Please ensure all input fields are filled and contain valid numbers (integers or floats)!")
+                    st.stop()
                     return False
 
             invalid_inputs = [input_value for input_value in input_list if input_value == "" or not is_valid_number(input_value)]
 
             if invalid_inputs:
                 st.warning("Please ensure all input fields are filled and contain valid numbers (integers or floats)!")
+                st.stop()
             else:
                 input_data = pd.DataFrame({
                 'GDP': [GDP], 
@@ -235,10 +281,7 @@ def main():
                 'under_five_deaths': [under_five_deaths]
                 }).astype(float)
 
-            #input_name =[GDP, HIV_AIDS, adult_mortality, alcohol, bmi, diphtheria, education_expenditure, hepatitis_b, infant_deaths, income_composition_of_resources, measles, percentage_expenditure, polio, schooling, thinness_5_19_years, total_expenditure, under_five_deaths
-
-            #input_data[input_name].replace('', 0, inplace=True)
-            #input_data = input_data.astype(float)   
+             
                 
             # code for Prediction
             le_years = ''
@@ -342,6 +385,7 @@ def main():
             
     
         elif choice == "Logout":
+            greet.empty()
             state.auth = False
             st.sidebar.empty()
             st.info("Logged out")
