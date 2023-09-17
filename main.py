@@ -145,10 +145,10 @@ def main():
             st.subheader("Research Objective")
             st.write('The primary objectives of this project are to:')
             st.markdown('<ol><li>Demonstrate the importance of building a data warehouse for Life Expectancy. </li><li>Design a fully automated cloud-based data warehouse using a star schema for efficient storage and querying of Life Expectancy data and related factors.</li><li>Analyze and visualize the relationships between Life Expectancy and its influencing key factors to identify the main trends and disparities causing the slow decline in  LE by creating a dashboard.</li><li>Train and evaluate a model using 3 machine learning algorithms to predict Life Expectancy and the key features causing the slow decline of LE based on key selected metrics.</li><li>Develop an API and web application for easy access to the insights of Life Expectancy data, dashboard, and machine learning model.</li><li>Provide insights and recommendations for policies and interventions aimed at reducing the life expectancy gap, and promoting health equity.</li></ol>', unsafe_allow_html=True)
-            st.write('Conclusion')
+            st.subheader('Conclusion')
             st.image("Actual vs. Predicted.png", use_column_width=True)
             markdown_text = """
-            **Finds and Results**
+            **Findings and Results**
             - **Life Expectancy Insights**: The research delved into life expectancy disparities, unveiling patterns and influential factors.
               
             - **Country Comparisons**: 
