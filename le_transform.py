@@ -1,3 +1,17 @@
+"""
+-------------------------------------------------------------------------------
+Author: Mark Antiw Acquaisie
+Description: This code is designed to transform and process data related to 
+life expectancy, education expenditure, and other related metrics. It includes 
+functions to convert dictionary data back into pandas DataFrames, perform various 
+transformations on the data, and model dimension tables. The code also contains 
+a test function to ensure the output of the main transformation function is defined.
+-------------------------------------------------------------------------------
+"""
+
+
+
+
 if 'transformer' not in globals():
     from mage_ai.data_preparation.decorators import transformer
 if 'test' not in globals():
