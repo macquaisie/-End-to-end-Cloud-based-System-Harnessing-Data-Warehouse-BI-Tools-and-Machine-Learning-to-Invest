@@ -1,3 +1,18 @@
+"""
+##########################################################################################
+# Author: Mark Antiw Acquaisie                                                           #
+# Description:                                                                           #
+# This script automates the process of downloading datasets related to life expectancy   #
+# from various sources, including the World Bank and Kaggle. It handles the downloading, #
+# extraction, renaming, and cleaning of datasets. The cleaned datasets are then uploaded #
+# to a Google Cloud Storage bucket for further use. The script leverages various         #
+# libraries and tools, including regular expressions for file renaming, the Google Cloud #
+# Storage API for uploading, and subprocess for running shell commands.                  #
+##########################################################################################
+"""
+
+
+
 import os
 import zipfile
 from urllib.request import urlretrieve
