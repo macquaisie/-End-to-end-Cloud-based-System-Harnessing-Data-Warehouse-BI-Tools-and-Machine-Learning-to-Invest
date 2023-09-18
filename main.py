@@ -1,3 +1,20 @@
+"""
+####################################################################################################
+#                                                                                                  #
+# Author: Mark Antiw Acquaisie                                                                      #
+#                                                                                                  #
+# Description:                                                                                     #
+# This script is designed to predict life expectancy using various health, economic, and            #
+# lifestyle indicators. It integrates with an SQLite database for user authentication and           #
+# utilizes the Streamlit framework for the web application interface. The main functionalities      #
+# include data preprocessing, outlier handling, user authentication, and life expectancy prediction #
+# using a pre-trained XGBoost model. The application also provides a dashboard for visualizing      #
+# life expectancy insights and a system architecture overview.                                      #
+#                                                                                                  #
+####################################################################################################
+"""
+
+
 import sqlite3
 import streamlit as st
 from streamlit import session_state as state
