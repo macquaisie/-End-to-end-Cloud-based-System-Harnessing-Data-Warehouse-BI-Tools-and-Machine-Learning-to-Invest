@@ -1,3 +1,17 @@
+"""
+##########################################################################################
+# Author: Mark Antiw Acquaisie                                                           #
+# Description:                                                                           #
+# This script is designed to loadd data to Google BigQuery as part of ETL. It sets up the#
+# environment, creates a new dataset, and defines tables within that dataset. The script #
+# also  provides functionality to export data to BigQuery and defines primary and foreign#
+# keys for the tables. The main goal is to structure and manage data related to          #
+# life expectancy in a BigQuery data warehouse.                                          #
+##########################################################################################
+"""
+
+
+
 import os
 from google.cloud import bigquery
 from mage_ai.data_preparation.repo_manager import get_repo_path
