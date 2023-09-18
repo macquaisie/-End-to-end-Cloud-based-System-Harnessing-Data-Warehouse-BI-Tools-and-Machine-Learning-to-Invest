@@ -1,3 +1,12 @@
+##########################################################################################
+# Author: Mark Antiw Acquaisie                                                           #
+# Description: This code is designed to extract data from multiple URLs and return it as #
+#              a dictionary of dictionaries. It also includes a test function to ensure  #
+#              the output is correctly formatted.                                        #
+##########################################################################################
+
+
+
 import io
 import pandas as pd
 import requests
