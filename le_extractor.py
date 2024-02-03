@@ -1,5 +1,5 @@
 ##########################################################################################
-# Author: Mark Antiw Acquaisie                                                           #
+# Author: Mark Antwi Acquaisie                                                           #
 # Description: This code is designed to extract data from multiple URLs and return it as #
 #              a dictionary of dictionaries. It also includes a test function to ensure  #
 #              the output is correctly formatted.                                        #
