@@ -1,6 +1,6 @@
 """
 ##########################################################################################
-# Author: Mark Antiw Acquaisie                                                           #
+# Author: Mark Antwi Acquaisie                                                           #
 # Description:                                                                           #
 # This script automates the process of downloading datasets related to life expectancy   #
 # from various sources, including the World Bank and Kaggle. It handles the downloading, #
