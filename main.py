@@ -1,7 +1,7 @@
 """
 ####################################################################################################
 #                                                                                                  #
-# Author: Mark Antiw Acquaisie                                                                      #
+# Author: Mark Antwi Acquaisie                                                                      #
 #                                                                                                  #
 # Description:                                                                                     #
 # This script is designed to predict life expectancy using various health, economic, and            #
@@ -128,7 +128,7 @@ def main():
                     state.page = "Project Overview"
                 else:
                     st.error("Incorrect username or password")
-            st.markdown("⬅️Register using the **Menu** here")
+            st.markdown("You can use Login: Mark Password: 123456 or ⬅️Register using the **Side Menu** on your left")
 
         elif choice == "Register":
             st.title("Registration Page")
