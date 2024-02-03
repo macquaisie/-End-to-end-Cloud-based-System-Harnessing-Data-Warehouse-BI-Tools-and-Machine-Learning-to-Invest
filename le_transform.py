@@ -1,6 +1,6 @@
 """
 -------------------------------------------------------------------------------
-Author: Mark Antiw Acquaisie
+Author: Mark Antwi Acquaisie
 Description: This code is designed to transform and process data related to 
 life expectancy, education expenditure, and other related metrics. It includes 
 functions to convert dictionary data back into pandas DataFrames, perform various 
