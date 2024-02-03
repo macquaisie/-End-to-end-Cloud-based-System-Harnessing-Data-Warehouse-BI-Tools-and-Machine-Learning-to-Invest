@@ -1,7 +1,7 @@
 """
 ####################################################################################################
 #                                                                                                  #
-# Author: Mark Antwi Acquaisie                                                                      #
+# Author: Mark Antwi Acquaisie                                                                    #
 #                                                                                                  #
 # Description:                                                                                     #
 # This script is designed to predict life expectancy using various health, economic, and            #
