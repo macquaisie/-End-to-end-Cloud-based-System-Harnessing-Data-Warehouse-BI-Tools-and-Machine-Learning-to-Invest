@@ -128,7 +128,7 @@ def main():
                     state.page = "Project Overview"
                 else:
                     st.error("Incorrect username or password")
-            st.markdown("You can use Login: Mark Password: 123456 or ⬅️Register using the **Side Menu** on your left")
+            st.markdown("You can use Login: mark Password: 123456 or ⬅️Register using the **Side Dropdown Menu** on your left")
 
         elif choice == "Register":
             st.title("Registration Page")
