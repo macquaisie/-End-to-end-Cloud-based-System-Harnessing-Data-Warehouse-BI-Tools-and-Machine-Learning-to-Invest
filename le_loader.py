@@ -1,6 +1,6 @@
 """
 ##########################################################################################
-# Author: Mark Antiw Acquaisie                                                           #
+# Author: Mark Antwi Acquaisie                                                           #
 # Description:                                                                           #
 # This script is designed to loadd data to Google BigQuery as part of ETL. It sets up the#
 # environment, creates a new dataset, and defines tables within that dataset. The script #
